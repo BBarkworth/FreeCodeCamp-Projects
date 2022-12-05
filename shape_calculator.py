@@ -53,7 +53,7 @@ class Square(Rectangle):
     self.width = width
     self.height = self.width
     self.side = self.width
-    # variables delcared rather than using other method as recursion loop created otherwise
+    # variables declared rather than using other method as recursion loop created otherwise
   def set_height(self, height):
     self.height = height
     self.width = self.height
