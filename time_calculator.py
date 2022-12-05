@@ -14,23 +14,21 @@ def add_time(start, duration, day = None):
   
   if time[2] == "PM":
     hour = hour + 12
-    total_hours = (hour + hour_change) - 12
   # converting PM numbers to a 24 hour clock
-  else:
-    total_hours = hour + hour_change
   if minutes + minutes_change > 60:
-     total_hours += 1
+     hour_change += 1
     # accounting for the extra hour when minutes go above 60
-  total_days = total_hours / 24
+  total_days = (hour_change / 24)
+  if hour_change % 24 > 24 - hour:
+    total_days += 1
   total_days = int(total_days)
-  if total_days > 1:
-    total_days = round(total_days)
-    # rounding down for the total days
-  final_hours = str(total_hours % 12)
+  # rounding down for the total days
+  final_hours = (hour_change + hour) % 12
+  final_hours = str(final_hours)
   if final_hours == "0":
     final_hours = "12"
   # converting to 12 hour clock
-  time_of_day = total_hours % 24
+  time_of_day = hour_change % 24
   if time_of_day >= 12:
     am_pm = " PM"
   else:
