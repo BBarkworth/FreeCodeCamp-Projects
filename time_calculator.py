@@ -1,8 +1,8 @@
 def add_time(start, duration, day = None):
-  days = {1: "Monday", 2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday", 7:"Sunday"}
+  days = {1: "Monday", 2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday", 7: "Sunday"}
   if day != None:
+    day = day.strip()
     day = day.capitalize()
-
   split = start.replace(':', ' ')
   time = split.split()
   hour, minutes = int(time[0]), int(time[1])
@@ -14,12 +14,15 @@ def add_time(start, duration, day = None):
   
   if time[2] == "PM":
     hour = hour + 12
+    total_hours = (hour + hour_change) - 12
   # converting PM numbers to a 24 hour clock
-  total_hours = hour + hour_change
+  else:
+    total_hours = hour + hour_change
   if minutes + minutes_change > 60:
      total_hours += 1
     # accounting for the extra hour when minutes go above 60
   total_days = total_hours / 24
+  total_days = int(total_days)
   if total_days > 1:
     total_days = round(total_days)
     # rounding down for the total days
@@ -59,3 +62,18 @@ def add_time(start, duration, day = None):
   else:
     new_time = final_hours + ":" + final_minutes + am_pm + ", " + final_day + str_days
   return new_time
+
+if __name__=="__main__":
+    while True:
+        values = input("Please provide a start time and a duration with a colon separating the hours and minutes in each and a comma separating the two arguments: ")
+        # Example input: 12:12PM, 17:15, Tuesday
+        if values != "":
+            break
+    values_list = values.split(',')
+    time = values_list[0]
+    length = values_list[1]
+    if len(values_list) > 2:
+      day = values_list[2]
+      print(add_time(time, length, day))
+    else:
+      print(add_time(time, length))
