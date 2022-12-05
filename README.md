@@ -14,7 +14,7 @@ This program contains a rectangle parent class that creates a shape based on the
 
 ### Probability Calculator
 Through OOP, this program determines the approximate probability of drawing certain balls randomly from a hat. Various arguments are factored in including 
-the number of balls in the draw and the number of experiemnts performed. For example, the following code will return a random number between 0 and 1.
+the number of balls in the draw and the number of experiemnts performed. For example, the following code will return a random number between 0 and 1:
 `hat = Hat(black=6, red=4, green=3)`
 `probability = experiment(hat=hat,
                     expected_balls={"red":2,"green":1},  
