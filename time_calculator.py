@@ -1,39 +1,36 @@
 def add_time(start, duration, day = None):
-  days = {1: "Monday", 2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday", 7: "Sunday"}
+  days = {0: "Sunday", 1: "Monday", 2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday"}
   if day != None:
     day = day.strip()
     day = day.capitalize()
   split = start.replace(':', ' ')
   time = split.split()
+  upper_time = time[2].upper()
   hour, minutes = int(time[0]), int(time[1])
   # converting the original hour and minutes
+  if upper_time == "PM" and hour != 12:
+    hour += 12
 
   change = duration.split(":")
   hour_change, minutes_change = int(change[0]), int(change[1])
   # converting the hour and minutes that change the original time
-  
-  if time[2] == "PM":
-    hour = hour + 12
-  # converting PM numbers to a 24 hour clock
+
   if minutes + minutes_change > 60:
-     hour_change += 1
+    hour_change += 1
     # accounting for the extra hour when minutes go above 60
-  total_days = (hour_change / 24)
-  if hour_change % 24 > 24 - hour:
-    total_days += 1
+  total_days = (hour_change + hour) / 24
   total_days = int(total_days)
   # rounding down for the total days
-  final_hours = (hour_change + hour) % 12
-  final_hours = str(final_hours)
-  if final_hours == "0":
-    final_hours = "12"
-  # converting to 12 hour clock
-  time_of_day = hour_change % 24
-  if time_of_day >= 12:
-    am_pm = " PM"
+  final_hours = (hour_change + hour) % 24
+  if final_hours >= 12:
+    am_pm = "PM"
+    final_hours -= 12
   else:
-    am_pm = " AM"
-  # AM/PM check
+    am_pm = "AM"
+  if final_hours == 0:
+    final_hours += 12
+  final_hours = str(final_hours)
+
   final_minutes = str((minutes + minutes_change) % 60)
   # conversion back to 60 minutes
   str_days = ""
@@ -50,11 +47,7 @@ def add_time(start, duration, day = None):
     if day == y and total_days >= 1:
       final_num = (x + total_days) % 7
       # loops through dictionaries via modulus function
-      if final_num == 0:
-        final_day = days[7]
-        # accounts for 0/Sunday issue
-      else:
-        final_day = days[final_num]
+      final_day = days[final_num]
   if day == None:
     new_time = final_hours + ":" + final_minutes + am_pm + str_days
   else:
