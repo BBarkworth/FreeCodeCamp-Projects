@@ -23,10 +23,10 @@ def add_time(start, duration, day = None):
   # rounding down for the total days
   final_hours = (hour_change + hour) % 24
   if final_hours >= 12:
-    am_pm = "PM"
+    am_pm = " PM"
     final_hours -= 12
   else:
-    am_pm = "AM"
+    am_pm = " AM"
   if final_hours == 0:
     final_hours += 12
   final_hours = str(final_hours)
