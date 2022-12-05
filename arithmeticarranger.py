@@ -86,3 +86,15 @@ def arithmetic_arranger(problems, answers = False):
   else:
     return arranged_numbers
     # returning the arranged numbers in whichever form is specified
+
+# main code to test the function
+if __name__=="__main__":
+    while True:
+        values = input("Please provide a list of calculations (no more than five) seperated by commas that are either addition or subtraction: ")
+        if values != "":
+            break
+    values_list = values.split(',')
+    nums = []
+    for i in range(len(values_list)):
+        nums.append(values_list[i])
+print(arithmetic_arranger(nums, True))
